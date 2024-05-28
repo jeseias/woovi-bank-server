@@ -1,6 +1,7 @@
 import type { User } from "domain/entities";
 import type { UserRepository } from "domain/repositories/users";
 import type { CryptoRepository } from "domain/services";
+import { AuthHelpers } from "../auth.helpers";
 
 export interface ILoginUserParams {
   [User.Fields.Tax_Id]: string;
@@ -15,11 +16,13 @@ type Response = Promise<
   | Error
 >;
 
-export class LoginUserUseCase {
+export class LoginUserUseCase extends AuthHelpers {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly cryptoRepository: CryptoRepository
-  ) {}
+  ) {
+    super();
+  }
 
   async execute(params: ILoginUserParams): Response {
     const user = await this.userRepository.findUser({
@@ -38,5 +41,10 @@ export class LoginUserUseCase {
     if (!isValidPassword) {
       return new Error("Wrong credentials");
     }
+
+    await this.cryptoRepository.encrypt(
+      { id: user["id"] },
+      this.generationTokenExpirationDate()
+    );
   }
 }
