@@ -42,9 +42,14 @@ export class LoginUserUseCase extends AuthHelpers {
       return new Error("Wrong credentials");
     }
 
-    await this.cryptoRepository.encrypt(
+    const token = await this.cryptoRepository.encrypt(
       { id: user["id"] },
       this.generationTokenExpirationDate()
     );
+
+    return {
+      user,
+      token,
+    };
   }
 }
