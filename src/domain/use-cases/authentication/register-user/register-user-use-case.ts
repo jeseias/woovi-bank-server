@@ -34,7 +34,7 @@ export class RegisterUserUseCase {
     });
 
     if (userAlreadyExists) {
-      throw new Error("User already exists");
+      return new Error("User already exists");
     }
 
     const user = await this.userRepository.createUser(params);

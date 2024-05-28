@@ -2,12 +2,16 @@
   "name": "woovi-bank-server",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "test": "vitest --watch"
+  },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
     "@types/bun": "latest",
     "eslint": "9.x",
     "globals": "^15.3.0",
-    "typescript-eslint": "^7.11.0"
+    "typescript-eslint": "^7.11.0",
+    "vitest": "^1.6.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
