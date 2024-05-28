@@ -5,30 +5,32 @@ import {
   mockUserRepository,
 } from "domain/use-cases/__tests__/user.mocks";
 import { mockAccountRepository } from "domain/use-cases/__tests__/account.mocks";
-import { mockHashRepository } from "domain/use-cases/__tests__/crypto.mocks";
+import { mockCryptoRepository } from "domain/use-cases/__tests__/crypto.mocks";
+import type { CreateUserRepository } from "domain/repositories/users/create-user-repository";
 
-const mockParams = () => ({
+const mockParams = (params?: Partial<CreateUserRepository.Params>) => ({
   name: "any_name",
   password: "any_password",
   tax_id: "any_tax_id",
+  ...params,
 });
 
 const makeSut = () => {
   const userRepository = mockUserRepository();
   const accountRepository = mockAccountRepository();
-  const hashRepository = mockHashRepository();
+  const cryptoRepository = mockCryptoRepository();
 
   const sut = new RegisterUserUseCase(
     userRepository,
     accountRepository,
-    hashRepository
+    cryptoRepository
   );
 
   return {
     sut,
     userRepository,
     accountRepository,
-    hashRepository,
+    cryptoRepository,
   };
 };
 
@@ -62,7 +64,9 @@ describe("RegisterUserUseCase", () => {
         await sut.execute(mockParams());
 
         expect(userRepository.createUser).toHaveBeenCalledTimes(1);
-        expect(userRepository.createUser).toHaveBeenCalledWith(mockParams());
+        expect(userRepository.createUser).toHaveBeenCalledWith(
+          mockParams({ password: "any_hash" })
+        );
       });
     });
 
@@ -82,15 +86,27 @@ describe("RegisterUserUseCase", () => {
     });
 
     describe("Cryptography", () => {
-      it("Should call hash() 1 time and with the correct params", async () => {
-        const { sut, userRepository, accountRepository, hashRepository } =
-          makeSut();
+      it("Should call encrypt() 1 time and with the correct params", async () => {
+        const { sut, userRepository, cryptoRepository } = makeSut();
         (userRepository.findUser as Mock).mockResolvedValue(null);
 
         await sut.execute(mockParams());
 
-        expect(hashRepository.hash).toHaveBeenCalledTimes(1);
-        expect(hashRepository.hash).toHaveBeenCalledWith("any_id");
+        expect(cryptoRepository.encrypt).toHaveBeenCalledTimes(1);
+        expect(cryptoRepository.encrypt).toHaveBeenCalledWith(
+          { id: "any_id" },
+          expect.any(Number)
+        );
+      });
+
+      it("Should call hash with the correct value", async () => {
+        const { sut, userRepository, cryptoRepository } = makeSut();
+        (userRepository.findUser as Mock).mockResolvedValue(null);
+
+        await sut.execute(mockParams());
+
+        expect(cryptoRepository.hash).toHaveBeenCalledTimes(1);
+        expect(cryptoRepository.hash).toHaveBeenCalledWith("any_password");
       });
     });
 
@@ -102,7 +118,7 @@ describe("RegisterUserUseCase", () => {
 
       expect(result).toEqual({
         user: mockUserModel(),
-        token: "any_hash",
+        token: "any_encrypt",
       });
     });
   });

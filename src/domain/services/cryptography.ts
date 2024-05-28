@@ -23,3 +23,8 @@ export namespace Cryptography {
     }
   }
 }
+
+export type CryptoRepository = Cryptography.Hasher.Contract &
+  Cryptography.HashCompare.Contract &
+  Cryptography.Encrypter.Contract &
+  Cryptography.Decrypter.Contract<any>;

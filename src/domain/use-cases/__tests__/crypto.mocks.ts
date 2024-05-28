@@ -1,7 +1,10 @@
-import type { Cryptography } from "domain/services";
+import type { CryptoRepository } from "domain/services";
 import { vi } from "vitest";
 
-export const mockHashRepository = () =>
+export const mockCryptoRepository = () =>
   ({
     hash: vi.fn().mockResolvedValue("any_hash"),
-  } as Cryptography.Hasher.Contract);
+    compare: vi.fn().mockResolvedValue(true),
+    decrypt: vi.fn().mockResolvedValue({}),
+    encrypt: vi.fn().mockResolvedValue("any_encrypt"),
+  } as CryptoRepository);

@@ -1,13 +1,13 @@
 import type { AccountRepository } from "domain/repositories/accounts";
 import type { UserRepository } from "domain/repositories/users";
 import type { CreateUserRepository } from "domain/repositories/users/create-user-repository";
-import type { Cryptography } from "domain/services";
+import type { CryptoRepository, Cryptography } from "domain/services";
 
 export class RegisterUserUseCase {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly accountRepository: AccountRepository,
-    private readonly hashRepository: Cryptography.Hasher.Contract
+    private readonly cryptoRepository: CryptoRepository
   ) {}
 
   generateAccountNumber(): string {
@@ -28,6 +28,15 @@ export class RegisterUserUseCase {
     return `${randomString}${formattedDate}`;
   }
 
+  generationTokenExpirationDate() {
+    const tokenNow = new Date();
+    const tokenMinutes = 60 * (24 * 7); // 1 week
+
+    return new Date(
+      tokenNow.setMinutes(tokenNow.getMinutes() + tokenMinutes)
+    ).getTime();
+  }
+
   async execute(params: CreateUserRepository.Params) {
     const userAlreadyExists = await this.userRepository.findUser({
       tax_id: params["tax_id"],
@@ -37,7 +46,11 @@ export class RegisterUserUseCase {
       return new Error("User already exists");
     }
 
-    const user = await this.userRepository.createUser(params);
+    const hashedPassword = await this.cryptoRepository.hash(params["password"]);
+    const user = await this.userRepository.createUser({
+      ...params,
+      password: hashedPassword,
+    });
 
     const account_number = this.generateAccountNumber();
     await this.accountRepository.createAccount({
@@ -45,7 +58,10 @@ export class RegisterUserUseCase {
       account_number,
     });
 
-    const token = await this.hashRepository.hash(user["id"]);
+    const token = await this.cryptoRepository.encrypt(
+      { id: user["id"] },
+      this.generationTokenExpirationDate()
+    );
 
     return {
       user,
