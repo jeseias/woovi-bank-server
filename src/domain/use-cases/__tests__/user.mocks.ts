@@ -1,6 +1,6 @@
 import type { User } from "domain/entities";
 import type { UserRepository } from "domain/repositories/users";
-import { vi } from "vitest";
+import { jest } from "@jest/globals";
 
 export const mockUserModel = (): User.Model => ({
   id: "any_id",
@@ -11,6 +11,6 @@ export const mockUserModel = (): User.Model => ({
 
 export const mockUserRepository = () =>
   ({
-    findUser: vi.fn().mockResolvedValue(mockUserModel()),
-    createUser: vi.fn().mockResolvedValue(mockUserModel()),
+    findUser: jest.fn().mockResolvedValue(mockUserModel()),
+    createUser: jest.fn().mockResolvedValue(mockUserModel()),
   } as UserRepository);

@@ -1,10 +1,10 @@
 import type { CryptoRepository } from "domain/services";
-import { vi } from "vitest";
+import { jest } from "@jest/globals";
 
 export const mockCryptoRepository = () =>
   ({
-    hash: vi.fn().mockResolvedValue("any_hash"),
-    compare: vi.fn().mockResolvedValue(true),
-    decrypt: vi.fn().mockResolvedValue({}),
-    encrypt: vi.fn().mockResolvedValue("any_encrypt"),
+    hash: jest.fn().mockResolvedValue("any_hash"),
+    compare: jest.fn().mockResolvedValue(true),
+    decrypt: jest.fn().mockResolvedValue({}),
+    encrypt: jest.fn().mockResolvedValue("any_encrypt"),
   } as CryptoRepository);

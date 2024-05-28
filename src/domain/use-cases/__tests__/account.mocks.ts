@@ -1,6 +1,6 @@
 import type { Account } from "domain/entities";
 import type { AccountRepository } from "domain/repositories/accounts";
-import { vi } from "vitest";
+import { jest } from "@jest/globals";
 
 export const mockAccountModel = (): Account.Model => ({
   account_number: "any_account_number",
@@ -11,5 +11,5 @@ export const mockAccountModel = (): Account.Model => ({
 
 export const mockAccountRepository = () =>
   ({
-    createAccount: vi.fn().mockResolvedValue(mockAccountModel()),
+    createAccount: jest.fn().mockResolvedValue(mockAccountModel()),
   } as AccountRepository);

@@ -1,4 +1,4 @@
-import { describe, expect, it, type Mock } from "vitest";
+import { describe, expect, it, jest } from "@jest/globals";
 import { RegisterUserUseCase } from "./register-user-use-case";
 import {
   mockUserModel,
@@ -59,7 +59,7 @@ describe("RegisterUserUseCase", () => {
 
       it("Should call createUser() 1 time and with the correct params", async () => {
         const { sut, userRepository } = makeSut();
-        (userRepository.findUser as Mock).mockResolvedValue(null);
+        (userRepository.findUser as jest.Mock).mockResolvedValue(null);
 
         await sut.execute(mockParams());
 
@@ -73,7 +73,7 @@ describe("RegisterUserUseCase", () => {
     describe("AccountRepository", () => {
       it("Should call createAccount() 1 time and with the correct params", async () => {
         const { sut, userRepository, accountRepository } = makeSut();
-        (userRepository.findUser as Mock).mockResolvedValue(null);
+        (userRepository.findUser as jest.Mock).mockResolvedValue(null);
 
         await sut.execute(mockParams());
 
@@ -88,7 +88,7 @@ describe("RegisterUserUseCase", () => {
     describe("Cryptography", () => {
       it("Should call encrypt() 1 time and with the correct params", async () => {
         const { sut, userRepository, cryptoRepository } = makeSut();
-        (userRepository.findUser as Mock).mockResolvedValue(null);
+        (userRepository.findUser as jest.Mock).mockResolvedValue(null);
 
         await sut.execute(mockParams());
 
@@ -101,7 +101,7 @@ describe("RegisterUserUseCase", () => {
 
       it("Should call hash with the correct value", async () => {
         const { sut, userRepository, cryptoRepository } = makeSut();
-        (userRepository.findUser as Mock).mockResolvedValue(null);
+        (userRepository.findUser as jest.Mock).mockResolvedValue(null);
 
         await sut.execute(mockParams());
 
@@ -112,7 +112,7 @@ describe("RegisterUserUseCase", () => {
 
     it("Should return user data and token on success", async () => {
       const { sut, userRepository } = makeSut();
-      (userRepository.findUser as Mock).mockResolvedValue(null);
+      (userRepository.findUser as jest.Mock).mockResolvedValue(null);
 
       const result = await sut.execute(mockParams());
 
