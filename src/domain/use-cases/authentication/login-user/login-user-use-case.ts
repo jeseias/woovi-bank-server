@@ -22,6 +22,12 @@ export class LoginUserUseCase {
   ) {}
 
   async execute(params: ILoginUserParams): Response {
-    await this.userRepository.findUser({ tax_id: params["tax_id"] });
+    const user = await this.userRepository.findUser({
+      tax_id: params["tax_id"],
+    });
+
+    if (!user) {
+      return new Error("Wrong credentials");
+    }
   }
 }
