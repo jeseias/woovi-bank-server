@@ -4,7 +4,7 @@ import {
   mockUserRepository,
 } from "domain/use-cases/__tests__/user.mocks";
 import { LoginUserUseCase } from "./login-user-use-case";
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 const mockParams = () => ({
   tax_id: "any_id",
@@ -35,7 +35,7 @@ describe("LoginUserUseCase", () => {
 
   it('Should return Error("Wrong credentials") if no account was found', async () => {
     const { sut, userRepository } = makeSut();
-    (userRepository.findUser as jest.Mock).mockResolvedValue(null);
+    userRepository.findUser.mockResolvedValue(null);
 
     const result = await sut.execute(mockParams());
 
@@ -44,7 +44,7 @@ describe("LoginUserUseCase", () => {
 
   it('Should return Error("Wrong credentials") if password is wrong', async () => {
     const { sut, cryptoRepository } = makeSut();
-    (cryptoRepository.compare as jest.Mock).mockResolvedValue(false);
+    cryptoRepository.compare.mockResolvedValue(false);
 
     const result = await sut.execute(mockParams());
 

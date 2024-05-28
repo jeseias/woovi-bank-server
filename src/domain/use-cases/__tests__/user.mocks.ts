@@ -9,8 +9,11 @@ export const mockUserModel = (): User.Model => ({
   tax_id: "any_tax_id",
 });
 
-export const mockUserRepository = () =>
-  ({
-    findUser: jest.fn().mockResolvedValue(mockUserModel()),
-    createUser: jest.fn().mockResolvedValue(mockUserModel()),
-  } as UserRepository);
+export const mockUserRepository = () => ({
+  findUser: jest
+    .fn<UserRepository["findUser"]>()
+    .mockResolvedValue(mockUserModel()),
+  createUser: jest
+    .fn<UserRepository["createUser"]>()
+    .mockResolvedValue(mockUserModel()),
+});

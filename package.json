@@ -1,14 +1,14 @@
 {
   "name": "woovi-bank-server",
   "module": "index.ts",
-  "type": "module",
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
     "@jest/globals": "^29.7.0",
     "@types/bun": "latest",
+    "@types/jest": "^29.5.12",
     "eslint": "9.x",
     "globals": "^15.3.0",
     "jest": "^29.7.0",
