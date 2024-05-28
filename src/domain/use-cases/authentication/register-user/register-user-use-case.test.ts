@@ -1,23 +1,11 @@
-import { describe, expect, it, vi, type Mock } from "vitest";
+import { describe, expect, it, type Mock } from "vitest";
 import { RegisterUserUseCase } from "./register-user-use-case";
-import type { AccountRepository } from "domain/repositories/accounts";
-import type { Cryptography } from "domain/services";
-import type { UserRepository } from "domain/repositories/users";
-import type { Account, User } from "domain/entities";
-
-const mockUserModel = (): User.Model => ({
-  id: "any_id",
-  name: "any_name",
-  password: "any_password",
-  tax_id: "any_tax_id",
-});
-
-const mockAccountModel = (): Account.Model => ({
-  account_number: "any_account_number",
-  balance: 123,
-  id: "any_id",
-  user_id: "any_user_id",
-});
+import {
+  mockUserModel,
+  mockUserRepository,
+} from "domain/use-cases/__tests__/user.mocks";
+import { mockAccountRepository } from "domain/use-cases/__tests__/account.mocks";
+import { mockHashRepository } from "domain/use-cases/__tests__/crypto.mocks";
 
 const mockParams = () => ({
   name: "any_name",
@@ -26,16 +14,9 @@ const mockParams = () => ({
 });
 
 const makeSut = () => {
-  const userRepository = {
-    findUser: vi.fn().mockResolvedValue(mockUserModel()),
-    createUser: vi.fn().mockResolvedValue(mockUserModel()),
-  } as UserRepository;
-  const accountRepository = {
-    createAccount: vi.fn().mockResolvedValue(mockAccountModel()),
-  } as AccountRepository;
-  const hashRepository = {
-    hash: vi.fn().mockResolvedValue("any_hash"),
-  } as Cryptography.Hasher.Contract;
+  const userRepository = mockUserRepository();
+  const accountRepository = mockAccountRepository();
+  const hashRepository = mockHashRepository();
 
   const sut = new RegisterUserUseCase(
     userRepository,
