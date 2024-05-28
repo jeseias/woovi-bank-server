@@ -1,8 +1,14 @@
 export namespace User {
+  export enum Fields {
+    Id = 'id',
+    Name = 'name',
+    Tax_Id = 'tax_id',
+    Password = 'password'
+  }
   export interface Model {
-    id: string
-    name: string 
-    tax_id: string 
-    password: string
+    [Fields.Id]: string;
+    [Fields.Name]: string;
+    [Fields.Tax_Id]: string;
+    [Fields.Password]: string;
   }
 }
