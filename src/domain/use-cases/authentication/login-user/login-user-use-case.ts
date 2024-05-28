@@ -29,5 +29,14 @@ export class LoginUserUseCase {
     if (!user) {
       return new Error("Wrong credentials");
     }
+
+    const isValidPassword = await this.cryptoRepository.compare({
+      value: params["password"],
+      hash: user["password"],
+    });
+
+    if (!isValidPassword) {
+      return new Error("Wrong credentials");
+    }
   }
 }
