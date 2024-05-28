@@ -3,10 +3,10 @@ import { RegisterUserUseCase } from "./register-user-use-case";
 import {
   mockUserModel,
   mockUserRepository,
-} from "domain/use-cases/__tests__/user.mocks";
-import { mockAccountRepository } from "domain/use-cases/__tests__/account.mocks";
-import { mockCryptoRepository } from "domain/use-cases/__tests__/crypto.mocks";
-import type { CreateUserRepository } from "domain/repositories/users/create-user-repository";
+} from "@/domain/use-cases/__mocks__/user.mocks";
+import { mockAccountRepository } from "@/domain/use-cases/__mocks__/account.mocks";
+import { mockCryptoRepository } from "@/domain/use-cases/__mocks__/crypto.mocks";
+import type { CreateUserRepository } from "@/domain/repositories/users/create-user-repository";
 
 const mockParams = (params?: Partial<CreateUserRepository.Params>) => ({
   name: "any_name",

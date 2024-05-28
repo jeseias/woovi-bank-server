@@ -2,7 +2,8 @@
   "name": "woovi-bank-server",
   "module": "index.ts",
   "scripts": {
-    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand"
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "type-check": "bun tsc"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
@@ -17,5 +18,8 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
   }
 }

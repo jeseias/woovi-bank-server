@@ -19,10 +19,10 @@
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
 
-    "rootDir": "./",
     "baseUrl": "./src",
+    "rootDir": "./",
     "paths": {
-      "@/*": ["./src"]
+      "@/*": ["./*"]
     },
 
     // Some stricter flags (disabled by default)

@@ -1,8 +1,8 @@
-import { mockCryptoRepository } from "domain/use-cases/__tests__/crypto.mocks";
+import { mockCryptoRepository } from "@/domain/use-cases/__mocks__/crypto.mocks";
 import {
   mockUserModel,
   mockUserRepository,
-} from "domain/use-cases/__tests__/user.mocks";
+} from "@/domain/use-cases/__mocks__/user.mocks";
 import { LoginUserUseCase } from "./login-user-use-case";
 import { describe, expect, it } from "@jest/globals";
 
