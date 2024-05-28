@@ -5,8 +5,6 @@ import {
 } from "domain/use-cases/__tests__/user.mocks";
 import { LoginUserUseCase } from "./login-user-use-case";
 import { describe, expect, it, jest } from "@jest/globals";
-import type { UserRepository } from "domain/repositories/users";
-import type { FindUserRepository } from "domain/repositories/users/find-user-repository";
 
 const mockParams = () => ({
   tax_id: "any_id",
