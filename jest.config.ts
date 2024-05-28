@@ -9,11 +9,6 @@ export default {
     "@/(.*)": "<rootDir>/src/$1",
   },
   transform: {
-    "^.+\\.ts?$": [
-      "ts-jest",
-      {
-        // ts-jest configuration goes here
-      },
-    ],
+    "^.+\\.ts?$": ["ts-jest", {}],
   },
 } as Config;
