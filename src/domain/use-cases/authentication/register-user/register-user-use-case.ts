@@ -29,6 +29,14 @@ export class RegisterUserUseCase {
   }
 
   async execute(params: CreateUserRepository.Params) {
+    const userAlreadyExists = await this.userRepository.findUser({
+      tax_id: params["tax_id"],
+    });
+
+    if (userAlreadyExists) {
+      throw new Error("User already exists");
+    }
+
     const user = await this.userRepository.createUser(params);
 
     const account_number = this.generateAccountNumber();
