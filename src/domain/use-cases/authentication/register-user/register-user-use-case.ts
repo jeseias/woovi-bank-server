@@ -1,7 +1,7 @@
 import type { AccountRepository } from "domain/repositories/accounts";
 import type { UserRepository } from "domain/repositories/users";
 import type { CreateUserRepository } from "domain/repositories/users/create-user-repository";
-import type { CryptoRepository, Cryptography } from "domain/services";
+import type { CryptoRepository } from "domain/services";
 
 export class RegisterUserUseCase {
   constructor(
