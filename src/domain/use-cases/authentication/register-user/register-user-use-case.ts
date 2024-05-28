@@ -2,13 +2,16 @@ import type { AccountRepository } from "domain/repositories/accounts";
 import type { UserRepository } from "domain/repositories/users";
 import type { CreateUserRepository } from "domain/repositories/users/create-user-repository";
 import type { CryptoRepository } from "domain/services";
+import { AuthHelpers } from "../auth.helpers";
 
-export class RegisterUserUseCase {
+export class RegisterUserUseCase extends AuthHelpers {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly accountRepository: AccountRepository,
     private readonly cryptoRepository: CryptoRepository
-  ) {}
+  ) {
+    super();
+  }
 
   generateAccountNumber(): string {
     const chars =
@@ -26,15 +29,6 @@ export class RegisterUserUseCase {
     const formattedDate = `${day}/${month}/${year}`;
 
     return `${randomString}${formattedDate}`;
-  }
-
-  generationTokenExpirationDate() {
-    const tokenNow = new Date();
-    const tokenMinutes = 60 * (24 * 7); // 1 week
-
-    return new Date(
-      tokenNow.setMinutes(tokenNow.getMinutes() + tokenMinutes)
-    ).getTime();
   }
 
   async execute(params: CreateUserRepository.Params) {
