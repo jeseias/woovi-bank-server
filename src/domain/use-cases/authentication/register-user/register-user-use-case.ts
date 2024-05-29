@@ -2,7 +2,7 @@ import type { AccountRepository } from "domain/repositories/accounts";
 import type { UserRepository } from "domain/repositories/users";
 import type { CreateUserRepository } from "domain/repositories/users/create-user-repository";
 import type { CryptoRepository } from "domain/services";
-import { AuthHelpers } from "../auth.helpers";
+import { AuthHelpers } from "../auth-helpers/auth-helpers";
 
 export class RegisterUserUseCase extends AuthHelpers {
   constructor(

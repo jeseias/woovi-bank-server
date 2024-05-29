@@ -1,4 +1,3 @@
-import { describe, expect, it } from "@jest/globals";
 import { RegisterUserUseCase } from "./register-user-use-case";
 import {
   mockUserModel,

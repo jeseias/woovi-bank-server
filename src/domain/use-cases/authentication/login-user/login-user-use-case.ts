@@ -1,7 +1,7 @@
 import type { User } from "domain/entities";
 import type { UserRepository } from "domain/repositories/users";
 import type { CryptoRepository } from "domain/services";
-import { AuthHelpers } from "../auth.helpers";
+import { AuthHelpers } from "../auth-helpers/auth-helpers";
 
 export interface ILoginUserParams {
   [User.Fields.Tax_Id]: string;
