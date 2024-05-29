@@ -1,8 +1,10 @@
 import { User } from "@/domain/entities";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 import { ModelNames } from "./model-names";
 
-const UserSchema = new Schema<User.Model>({
+export interface UserDocument extends Document, User.Entity {}
+
+const UserSchema = new Schema<UserDocument>({
   [User.Fields.Name]: {
     type: String,
     required: true,
@@ -18,4 +20,7 @@ const UserSchema = new Schema<User.Model>({
   },
 });
 
-export const UserModel = mongoose.model(ModelNames.Users, UserSchema);
+export const UserModel = mongoose.model<UserDocument>(
+  ModelNames.Users,
+  UserSchema
+);

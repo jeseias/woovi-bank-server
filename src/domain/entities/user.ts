@@ -13,7 +13,7 @@ export namespace User {
     [Fields.Password]: string;
   }
 
-  export class Model implements IModel {
+  export class Entity implements IModel {
     constructor(
       public readonly id: string,
       public name: string,

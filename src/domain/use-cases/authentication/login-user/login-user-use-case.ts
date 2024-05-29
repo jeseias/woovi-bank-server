@@ -10,7 +10,7 @@ export interface ILoginUserParams {
 
 type Response = Promise<
   | {
-      user: User.Model;
+      user: User.Entity;
       token: string;
     }
   | Error

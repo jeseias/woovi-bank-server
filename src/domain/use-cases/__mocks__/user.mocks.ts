@@ -2,7 +2,7 @@ import type { User } from "domain/entities";
 import type { UserRepository } from "domain/repositories/users";
 import { jest } from "@jest/globals";
 
-export const mockUserModel = (): User.Model => ({
+export const mockUserModel = (): User.Entity => ({
   id: "any_id",
   name: "any_name",
   password: "any_password",
