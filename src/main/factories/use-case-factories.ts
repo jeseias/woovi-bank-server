@@ -1,3 +1,4 @@
+import { LoginUserUseCase } from "@/domain/use-cases/authentication/login-user";
 import { RegisterUserUseCase } from "@/domain/use-cases/authentication/register-user";
 import { cryptoAdapter } from "@/infra/cryptography/crypto-adapter";
 import { accountMongooseRepository } from "@/infra/db/repositories/account-mongoose-repository";
@@ -9,3 +10,6 @@ export const makeRegisterUser = () =>
     accountMongooseRepository,
     cryptoAdapter
   );
+
+export const makeLogin = () =>
+  new LoginUserUseCase(userMongooseRepository, cryptoAdapter);
