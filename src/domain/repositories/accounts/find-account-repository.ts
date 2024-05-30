@@ -4,7 +4,7 @@ export namespace FindAccountRepository {
   export type Params = {
     [Account.Fields.User_Id]: string;
   };
-  export type Response = Promise<Account.Entity>;
+  export type Response = Promise<Account.Entity | null>;
 
   export interface Contract {
     findAccount(params: Params): Response;

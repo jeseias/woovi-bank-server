@@ -4,7 +4,7 @@ export namespace FindTransactionRepository {
   export type Params = Partial<
     Record<Transaction.Fields.Id | Transaction.Fields.Transaction_Id, string>
   >;
-  export type Response = Promise<Transaction.Entity>;
+  export type Response = Promise<Transaction.Entity | null>;
 
   export interface Contract {
     find(params: Params): Response;
