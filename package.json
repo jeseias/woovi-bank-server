@@ -2,7 +2,7 @@
   "name": "woovi-bank-server",
   "module": "index.ts",
   "scripts": {
-    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test": "jest --passWithNoTests --verbose --noStackTrace --runInBand --watch",
     "type-check": "bun tsc"
   },
   "devDependencies": {

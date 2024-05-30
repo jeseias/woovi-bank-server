@@ -4,11 +4,14 @@ import { CreateAccountRepository } from "domain/repositories/accounts/create-acc
 import { FindAccountRepository } from "@/domain/repositories/accounts/find-account-repository";
 import { UpdateAccountRepository } from "@/domain/repositories/accounts/update-account-repository";
 
-export const mockAccountModel = (): Account.Entity => ({
-  account_number: "any_account_number",
-  balance: 123,
+export const mockAccountModel = (
+  params?: Partial<Account.Entity>
+): Account.Entity => ({
   id: "any_id",
   user_id: "any_user_id",
+  account_number: "any_account_number",
+  balance: 123,
+  ...params,
 });
 
 export const mockAccountRepository = () => ({
