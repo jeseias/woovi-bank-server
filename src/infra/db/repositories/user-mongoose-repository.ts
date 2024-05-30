@@ -28,3 +28,5 @@ export class UserMongooseRepository implements UserRepository {
     );
   }
 }
+
+export const userMongooseRepository = new UserMongooseRepository();
