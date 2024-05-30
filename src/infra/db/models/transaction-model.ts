@@ -1,5 +1,5 @@
 import { Transaction } from "@/domain/entities";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import { ModelNames } from "./model-names";
 
 export interface TransactionDocument extends Document, Transaction.Entity {}
