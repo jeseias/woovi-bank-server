@@ -2,7 +2,7 @@ import type { Account } from "domain/entities";
 import { jest } from "@jest/globals";
 import { CreateAccountRepository } from "domain/repositories/accounts/create-account-repository";
 
-export const mockAccountModel = (): Account.Model => ({
+export const mockAccountModel = (): Account.Entity => ({
   account_number: "any_account_number",
   balance: 123,
   id: "any_id",
