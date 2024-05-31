@@ -1,21 +1,15 @@
 import { ApolloServer } from "apollo-server";
 import { typeDefs } from "./presentation/gql-type-defs";
-import { authResolvers } from "./presentation/auth-resolver";
 import mongoose from "mongoose";
 import { env } from "bun";
-import { transactionResolvers } from "./presentation/transaction-resolvers";
+import { appResolvers } from "./presentation/resolvers";
 
 mongoose
   .connect(env.MONGO_URL)
   .then(() => {
     const server = new ApolloServer({
       typeDefs: typeDefs,
-      resolvers: {
-        Mutation: {
-          ...authResolvers.Mutation,
-          ...transactionResolvers.Mutation,
-        },
-      },
+      resolvers: appResolvers,
     });
 
     server.listen().then(({ url }) => {

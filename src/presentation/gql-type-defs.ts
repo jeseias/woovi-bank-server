@@ -34,11 +34,21 @@ export const typeDefs = gql`
       password: String!
     ): AuthReturnPayload!
     login(tax_id: String!, password: String!): AuthReturnPayload
-    sendMoney(sender: String!, receiver: String!, value: Int!, transaction_id: String!): Transaction!
+    sendMoney(
+      sender: String!
+      receiver: String!
+      value: Int!
+      transaction_id: String!
+    ): Transaction!
+    calculateAvailableBalance(user_id: String!): CalculateAccountBalanceResponse
   }
 
   type AuthReturnPayload {
     user: User!
     token: String!
+  }
+
+  type CalculateAccountBalanceResponse {
+    balance: Int!
   }
 `;

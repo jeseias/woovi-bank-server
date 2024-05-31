@@ -1,3 +1,4 @@
+import { CalculateAccountAvailableBalance } from "@/domain/use-cases/accounts/calculate-account-available-balance/calculate-account-available-balance-use-case";
 import { LoginUserUseCase } from "@/domain/use-cases/authentication/login-user";
 import { RegisterUserUseCase } from "@/domain/use-cases/authentication/register-user";
 import { SendMoneyUseCase } from "@/domain/use-cases/transactions/send-money/send-money-use-case";
@@ -21,3 +22,6 @@ export const makeSendMoney = () =>
     accountMongooseRepository,
     transactionMongooseRepository
   );
+
+export const calculateAvailableAccountBalance = () =>
+  new CalculateAccountAvailableBalance(accountMongooseRepository);

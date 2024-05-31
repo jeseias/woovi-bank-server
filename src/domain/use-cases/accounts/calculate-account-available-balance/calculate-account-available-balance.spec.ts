@@ -1,54 +1,51 @@
 import {
+  mockAccountModel,
+  mockAccountRepository,
+} from "../../__mocks__/account.mocks";
+import {
   mockTransactionModel,
   mockTransactionRepository,
 } from "../../__mocks__/transaction.mocks";
 import { CalculateAccountAvailableBalance } from "./calculate-account-available-balance-use-case";
 
 const makeSut = () => {
-  const transactionRepository = mockTransactionRepository();
-  const sut = new CalculateAccountAvailableBalance(transactionRepository);
+  const accountRepository = mockAccountRepository();
+  const sut = new CalculateAccountAvailableBalance(accountRepository);
 
   return {
     sut,
-    transactionRepository,
+    accountRepository,
   };
 };
 
 describe("CalculateAccountAvailableBalance", () => {
-  it("Should call findAllByUser() with the correct values", async () => {
-    const { sut, transactionRepository } = makeSut();
+  it("Should call accountRepository.findAccount() with the correct values", async () => {
+    const { sut, accountRepository } = makeSut();
 
     await sut.execute({ user_id: "any_id" });
 
-    expect(transactionRepository.findAllByUser).toHaveBeenCalledTimes(1);
-    expect(transactionRepository.findAllByUser).toHaveBeenCalledWith({
+    expect(accountRepository.findAccount).toHaveBeenCalledTimes(1);
+    expect(accountRepository.findAccount).toHaveBeenCalledWith({
       user_id: "any_id",
     });
   });
 
-  it("Should return balance of 0 if the user has 0 transactions", async () => {
-    const { sut, transactionRepository } = makeSut();
-    transactionRepository.findAllByUser.mockResolvedValue([]);
+  it("Should return balance of 0 if the account has a balance of 0", async () => {
+    const { sut, accountRepository } = makeSut();
+    accountRepository.findAccount.mockResolvedValue(
+      mockAccountModel({ balance: 0 })
+    );
 
     const result = await sut.execute({ user_id: "any_id" });
 
     expect(result).toEqual({ balance: 0 });
   });
 
-  it("Should return balance of 750", async () => {
-    const { sut, transactionRepository } = makeSut();
-    transactionRepository.findAllByUser.mockResolvedValue([
-      mockTransactionModel({
-        receiver: "any_id",
-        sender: "another_id",
-        value: 250,
-      }),
-      mockTransactionModel({
-        receiver: "any_id",
-        sender: "third_id",
-        value: 500,
-      }),
-    ]);
+  it("Should return balance of 750 if the account has a balance of 750", async () => {
+    const { sut, accountRepository } = makeSut();
+    accountRepository.findAccount.mockResolvedValue(
+      mockAccountModel({ balance: 750 })
+    );
 
     const result = await sut.execute({ user_id: "any_id" });
 
