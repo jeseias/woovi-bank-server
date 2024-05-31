@@ -6,11 +6,12 @@ import {
 import { mockAccountRepository } from "@/domain/use-cases/__mocks__/account.mocks";
 import { mockCryptoRepository } from "@/domain/use-cases/__mocks__/crypto.mocks";
 import type { CreateUserRepository } from "@/domain/repositories/users/create-user-repository";
+import { User } from "@/domain/entities";
 
 const mockParams = (params?: Partial<CreateUserRepository.Params>) => ({
   name: "any_name",
   password: "any_password",
-  tax_id: "any_tax_id",
+  tax_id: "487.501.680-88",
   ...params,
 });
 
@@ -35,6 +36,43 @@ const makeSut = () => {
 
 describe("RegisterUserUseCase", () => {
   describe("Execute()", () => {
+    describe("Validation", () => {
+      it("Should call isValidTaxId with the correct value", async () => {
+        const { sut } = makeSut();
+        const validateSpy = jest.spyOn(User, "isValidTaxId");
+
+        await sut.execute(mockParams({ tax_id: "any_taxId" }));
+
+        expect(validateSpy).toHaveBeenCalledTimes(1);
+        expect(validateSpy).toHaveBeenCalledWith("any_taxId");
+      });
+
+      it("isValidTaxId() should return false if the provided value is not valid", async () => {
+        const { sut } = makeSut();
+        const validateSpy = jest.spyOn(User, "isValidTaxId");
+
+        await sut.execute(mockParams({ tax_id: "any_id" }));
+
+        expect(validateSpy).toHaveReturnedWith(false);
+      });
+      it("isValidTaxId() should return true if the provided value is valid", async () => {
+        const { sut } = makeSut();
+        const validateSpy = jest.spyOn(User, "isValidTaxId");
+
+        await sut.execute(mockParams({ tax_id: "824.166.110-03" }));
+
+        expect(validateSpy).toHaveReturnedWith(true);
+      });
+
+      it("Should return Error('Invalid tax id') if provided value is not valid", async () => {
+        const { sut } = makeSut();
+
+        const result = await sut.execute(mockParams({ tax_id: "any_id" }));
+
+        expect(result).toEqual(new Error("Invalid tax id"));
+      });
+    });
+
     describe("UserRepository", () => {
       it("Should call findUser() with the correct params", async () => {
         const { sut, userRepository } = makeSut();

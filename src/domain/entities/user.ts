@@ -1,9 +1,12 @@
+import { validateCnpj } from "../validations/validate-cnpj";
+import { validateCpf } from "../validations/validate-cpf";
+
 export namespace User {
   export enum Fields {
-    Id = 'id',
-    Name = 'name',
-    Tax_Id = 'tax_id',
-    Password = 'password'
+    Id = "id",
+    Name = "name",
+    Tax_Id = "tax_id",
+    Password = "password",
   }
 
   export interface IModel {
@@ -20,5 +23,9 @@ export namespace User {
       public tax_id: string,
       public password: string
     ) {}
+  }
+
+  export function isValidTaxId(value: string) {
+    return validateCpf(value) || validateCnpj(value);
   }
 }

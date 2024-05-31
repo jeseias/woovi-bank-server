@@ -3,7 +3,7 @@ import type { UserRepository } from "domain/repositories/users";
 import type { CreateUserRepository } from "domain/repositories/users/create-user-repository";
 import type { CryptoRepository } from "domain/services";
 import { AuthHelpers } from "../auth-helpers/auth-helpers";
-import { Account } from "@/domain/entities";
+import { Account, User } from "@/domain/entities";
 
 export class RegisterUserUseCase extends AuthHelpers {
   constructor(
@@ -16,6 +16,10 @@ export class RegisterUserUseCase extends AuthHelpers {
 
   async execute(params: CreateUserRepository.Params) {
     try {
+      if (!User.isValidTaxId(params["tax_id"])) {
+        return new Error("Invalid tax id");
+      }
+
       const userAlreadyExists = await this.userRepository.findUser({
         tax_id: params["tax_id"],
       });
