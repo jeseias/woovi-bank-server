@@ -23,9 +23,12 @@ export class AccountMongooseRepository implements AccountRepository {
   async update(
     params: UpdateAccountRepository.Params
   ): UpdateAccountRepository.Response {
-    const account = await AccountModel.findByIdAndUpdate(params.user_id, {
-      balance: params.balance,
-    }).lean();
+    const account = await AccountModel.findOneAndUpdate(
+      { user_id: params.user_id },
+      {
+        balance: params.balance,
+      }
+    ).lean();
 
     return account! && this.toDomain(account);
   }

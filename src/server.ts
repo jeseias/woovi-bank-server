@@ -3,6 +3,7 @@ import { typeDefs } from "./presentation/gql-type-defs";
 import { authResolvers } from "./presentation/auth-resolver";
 import mongoose from "mongoose";
 import { env } from "bun";
+import { transactionResolvers } from "./presentation/transaction-resolvers";
 
 mongoose
   .connect(env.MONGO_URL)
@@ -10,7 +11,10 @@ mongoose
     const server = new ApolloServer({
       typeDefs: typeDefs,
       resolvers: {
-        ...authResolvers,
+        Mutation: {
+          ...authResolvers.Mutation,
+          ...transactionResolvers.Mutation,
+        },
       },
     });
 

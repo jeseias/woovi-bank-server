@@ -19,7 +19,7 @@ export const typeDefs = gql`
     id: String!
     sender: String!
     receiver: String!
-    value: String!
+    value: Int!
     transaction_id: String!
   }
 
@@ -34,6 +34,7 @@ export const typeDefs = gql`
       password: String!
     ): AuthReturnPayload!
     login(tax_id: String!, password: String!): AuthReturnPayload
+    sendMoney(sender: String!, receiver: String!, value: Int!, transaction_id: String!): Transaction!
   }
 
   type AuthReturnPayload {
