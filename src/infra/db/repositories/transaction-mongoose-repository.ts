@@ -6,6 +6,7 @@ import {
 } from "../models/transaction-model";
 import { Transaction } from "@/domain/entities";
 import { FindTransactionRepository } from "@/domain/repositories/transactions/find-transaction-repository";
+import { FindTransactionsByUserRepository } from "@/domain/repositories/transactions/find-transactions-by-user-repository";
 
 export class TransactionMongooseRepository implements TransactionRepository {
   async create(
@@ -22,6 +23,23 @@ export class TransactionMongooseRepository implements TransactionRepository {
   ): FindTransactionRepository.Response {
     const transaction = await TransactionModel.findOne(params);
     return transaction && this.toDomain(transaction);
+  }
+
+  async findAllByUser(
+    params: FindTransactionsByUserRepository.Params
+  ): FindTransactionsByUserRepository.Response {
+    const transactions = await TransactionModel.find({
+      $or: [
+        {
+          [Transaction.Fields.Receiver_Id]: params.user_id,
+        },
+        {
+          [Transaction.Fields.Sender_Id]: params.user_id,
+        },
+      ],
+    }).lean();
+
+    return transactions.map((item) => this.toDomain(item));
   }
 
   private toDomain(transaction: TransactionDocument) {
