@@ -8,6 +8,7 @@ const AccountSchema = new Schema<AccountDocument>({
   [Account.Fields.Account_Number]: {
     type: String,
     required: true,
+    unique: true,
   },
   [Account.Fields.User_Id]: {
     type: Types.ObjectId,
@@ -16,6 +17,7 @@ const AccountSchema = new Schema<AccountDocument>({
   [Account.Fields.Balance]: {
     type: Number,
     required: true,
+    default: 0,
   },
 });
 
