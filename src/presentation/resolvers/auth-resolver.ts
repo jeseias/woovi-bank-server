@@ -10,14 +10,14 @@ const loginUser = makeLogin();
 
 export const authResolvers = {
   Mutation: {
-    registerUser: async (_, arg: CreateUserRepository.Params) => {
+    registerUser: async (_: any, arg: CreateUserRepository.Params) => {
       const result = await registerUser.execute({
         ...arg,
       });
 
       return result;
     },
-    login: async (_, args: ILoginUserParams) => {
+    login: async (_: any, args: ILoginUserParams) => {
       const result = await loginUser.execute(args);
       return result;
     },
