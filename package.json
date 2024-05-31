@@ -3,7 +3,8 @@
   "module": "index.ts",
   "scripts": {
     "test": "jest --passWithNoTests --verbose --noStackTrace --runInBand --watch",
-    "type-check": "bun tsc"
+    "type-check": "bun tsc",
+    "dev": "bun src/server.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
@@ -22,7 +23,9 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "apollo-server": "^3.13.0",
     "bcrypt": "^5.1.1",
+    "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.0",
     "ts-node": "^10.9.2"
