@@ -6,7 +6,7 @@ export interface AccountDocument extends Document, Account.Entity {}
 
 const AccountSchema = new Schema<AccountDocument>({
   [Account.Fields.Account_Number]: {
-    type: String,
+    type: Number,
     required: true,
     unique: true,
   },
