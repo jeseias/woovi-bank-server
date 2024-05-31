@@ -1,13 +1,22 @@
-import { AccountRepository } from "@/domain/repositories/accounts";
+import { TransactionRepository } from "@/domain/repositories/transactions";
 
 export class CalculateAccountAvailableBalance {
-  constructor(private readonly accountRepository: AccountRepository) {}
+  constructor(private readonly transactionRepository: TransactionRepository) {}
 
   async execute({ user_id }: { user_id: string }) {
-    const account = await this.accountRepository.findAccount({
+    const transactions = await this.transactionRepository.findAllByUser({
       user_id,
     });
 
-    return { balance: account?.balance };
+    const balance = transactions.reduce((acc, transaction) => {
+      if (transaction["receiver"] === user_id) {
+        return acc + transaction["value"];
+      } else if (transaction["sender"] === user_id) {
+        return acc - transaction["value"];
+      }
+      return acc;
+    }, 0);
+
+    return { balance };
   }
 }
