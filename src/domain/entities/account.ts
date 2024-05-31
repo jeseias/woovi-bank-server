@@ -8,7 +8,7 @@ export namespace Account {
 
   export interface IModel {
     [Fields.Id]: string;
-    [Fields.Account_Number]: string;
+    [Fields.Account_Number]: number;
     [Fields.User_Id]: string;
     [Fields.Balance]: number;
   }
@@ -16,9 +16,17 @@ export namespace Account {
   export class Entity implements IModel {
     constructor(
       public readonly id: string,
-      public account_number: string,
+      public account_number: number,
       public user_id: string,
       public balance: number
     ) {}
+  }
+
+  export function generateAccountNumber() {
+    let digits = [];
+    for (let i = 0; i < length; i++) {
+      digits.push(Math.floor(Math.random() * 10));
+    }
+    return Number(digits.join(""));
   }
 }
