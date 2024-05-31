@@ -9,7 +9,7 @@ export const mockAccountModel = (
 ): Account.Entity => ({
   id: "any_id",
   user_id: "any_user_id",
-  account_number: "any_account_number",
+  account_number: 123,
   balance: 123,
   ...params,
 });

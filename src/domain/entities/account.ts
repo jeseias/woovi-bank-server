@@ -22,7 +22,7 @@ export namespace Account {
     ) {}
   }
 
-  export function generateAccountNumber() {
+  export function generateAccountNumber(length: number) {
     let digits = [];
     for (let i = 0; i < length; i++) {
       digits.push(Math.floor(Math.random() * 10));

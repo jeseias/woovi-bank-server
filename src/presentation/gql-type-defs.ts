@@ -32,10 +32,11 @@ export const typeDefs = gql`
       name: String!
       tax_id: String!
       password: String!
-    ): RegistrationReturnPayload!
+    ): AuthReturnPayload!
+    login(tax_id: String!, password: String!): AuthReturnPayload
   }
 
-  type RegistrationReturnPayload {
+  type AuthReturnPayload {
     user: User!
     token: String!
   }

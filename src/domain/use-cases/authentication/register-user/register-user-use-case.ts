@@ -32,7 +32,7 @@ export class RegisterUserUseCase extends AuthHelpers {
         password: hashedPassword,
       });
 
-      const account_number = Account.generateAccountNumber();
+      const account_number = Account.generateAccountNumber(8);
       await this.accountRepository.createAccount({
         user_id: user["id"],
         account_number,

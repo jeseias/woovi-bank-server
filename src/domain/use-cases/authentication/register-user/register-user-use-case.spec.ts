@@ -79,7 +79,7 @@ describe("RegisterUserUseCase", () => {
         expect(accountRepository.createAccount).toHaveBeenCalledTimes(1);
         expect(accountRepository.createAccount).toHaveBeenCalledWith({
           user_id: "any_id",
-          account_number: expect.any(String),
+          account_number: expect.any(Number),
         });
       });
     });
