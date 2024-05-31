@@ -1,6 +1,6 @@
-import { calculateAvailableAccountBalance } from "@/main/factories/use-case-factories";
+import { makeCalculateAvailableAccountBalance } from "@/main/factories/use-case-factories";
 
-const calculateBalance = calculateAvailableAccountBalance();
+const calculateBalance = makeCalculateAvailableAccountBalance();
 
 export const accountResolvers = {
   Mutation: {

@@ -23,5 +23,5 @@ export const makeSendMoney = () =>
     transactionMongooseRepository
   );
 
-export const calculateAvailableAccountBalance = () =>
-  new CalculateAccountAvailableBalance(accountMongooseRepository);
+export const makeCalculateAvailableAccountBalance = () =>
+  new CalculateAccountAvailableBalance(transactionMongooseRepository);
