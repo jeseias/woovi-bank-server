@@ -1,11 +1,15 @@
-import { CalculateAccountAvailableBalance } from "@/domain/use-cases/accounts/calculate-account-available-balance/calculate-account-available-balance-use-case";
-import { LoginUserUseCase } from "@/domain/use-cases/authentication/login-user";
-import { RegisterUserUseCase } from "@/domain/use-cases/authentication/register-user";
-import { SendMoneyUseCase } from "@/domain/use-cases/transactions/send-money/send-money-use-case";
-import { cryptoAdapter } from "@/infra/cryptography/crypto-adapter";
-import { accountMongooseRepository } from "@/infra/db/repositories/account-mongoose-repository";
-import { transactionMongooseRepository } from "@/infra/db/repositories/transaction-mongoose-repository";
-import { userMongooseRepository } from "@/infra/db/repositories/user-mongoose-repository";
+import { CalculateAccountAvailableBalance } from "@/domain/use-cases/accounts";
+import {
+  LoginUserUseCase,
+  RegisterUserUseCase,
+} from "@/domain/use-cases/authentication";
+import { SendMoneyUseCase } from "@/domain/use-cases/transactions";
+import { cryptoAdapter } from "@/infra/cryptography";
+import {
+  accountMongooseRepository,
+  transactionMongooseRepository,
+  userMongooseRepository,
+} from "@/infra/db/repositories";
 
 export const makeRegisterUser = () =>
   new RegisterUserUseCase(
