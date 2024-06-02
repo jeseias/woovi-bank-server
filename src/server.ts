@@ -3,12 +3,11 @@ import { typeDefs } from "./presentation/gql-type-defs";
 import mongoose from "mongoose";
 import { env } from "bun";
 import { appResolvers } from "./presentation/resolvers";
-import Koa from "koa";
-import Router from "koa-router";
 
 mongoose
   .connect(env.MONGO_URL)
   .then(async () => {
+    const { app } = await import("./main/config/app");
     const server = new ApolloServer({
       typeDefs: typeDefs,
       resolvers: appResolvers,
@@ -16,14 +15,6 @@ mongoose
 
     await server.start();
 
-    const app = new Koa();
-    const router = new Router();
-
-    router.get("/", (ctx) => {
-      ctx.body = "Woovi Bank Server";
-    });
-
-    app.use(router.routes()).use(router.allowedMethods());
     server.applyMiddleware({ app });
 
     const PORT = env.PORT || 4000;
