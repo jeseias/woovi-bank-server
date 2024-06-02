@@ -1,11 +1,11 @@
 import { ApolloServer } from "apollo-server-koa";
 import { typeDefs } from "./presentation/gql-type-defs";
 import mongoose from "mongoose";
-import { env } from "bun";
 import { appResolvers } from "./presentation/resolvers";
+import { _env } from "./main/config/_envs";
 
 mongoose
-  .connect(env.MONGO_URL)
+  .connect(_env.MONGO_URL)
   .then(async () => {
     const { app } = await import("./main/config/app");
     const server = new ApolloServer({
@@ -17,7 +17,7 @@ mongoose
 
     server.applyMiddleware({ app });
 
-    const PORT = env.PORT || 4000;
+    const PORT = _env.PORT;
 
     app.listen(PORT, () => {
       console.log(`Server listening on ${server.graphqlPath}`);

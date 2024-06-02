@@ -1,7 +1,7 @@
 import { CryptoRepository } from "@/domain/services";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { env } from "bun";
+import { _env } from "@/main/config/_envs";
 
 export class CryptoAdapter implements CryptoRepository {
   constructor(private readonly secret: string, private readonly salt: number) {}
@@ -33,4 +33,4 @@ export class CryptoAdapter implements CryptoRepository {
   }
 }
 
-export const cryptoAdapter = new CryptoAdapter(env.JWT_SECRET, 12);
+export const cryptoAdapter = new CryptoAdapter(_env.JWT_SECRET, 12);
