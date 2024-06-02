@@ -29,18 +29,9 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    registerUser(
-      name: String!
-      tax_id: String!
-      password: String!
-    ): AuthReturnPayload!
-    login(tax_id: String!, password: String!): AuthReturnPayload
-    sendMoney(
-      sender: String!
-      receiver: String!
-      value: Int!
-      transaction_id: String!
-    ): Transaction!
+    registerUser(input: RegisterUserInput!): AuthReturnPayload!
+    login(input: LoginUserInput!): AuthReturnPayload
+    sendMoney(input: SendMoneyInput!): Transaction!
   }
 
   type AuthReturnPayload {
@@ -50,5 +41,23 @@ export const typeDefs = gql`
 
   type CalculateAccountBalanceResponse {
     balance: Int!
+  }
+
+  input RegisterUserInput {
+    name: String!
+    tax_id: String!
+    password: String!
+  }
+
+  input LoginUserInput {
+    tax_id: String!
+    password: String!
+  }
+
+  input SendMoneyInput {
+    sender: String!
+    receiver: String!
+    value: Int!
+    transaction_id: String!
   }
 `;
