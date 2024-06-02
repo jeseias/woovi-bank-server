@@ -5,7 +5,9 @@ import { transactionResolvers } from "./transaction-resolvers";
 export const appResolvers = {
   Mutation: {
     ...authResolvers.Mutation,
-    ...accountResolvers.Mutation,
     ...transactionResolvers.Mutation,
+  },
+  Query: {
+    ...accountResolvers.Query,
   },
 };

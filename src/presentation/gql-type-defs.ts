@@ -25,6 +25,7 @@ export const typeDefs = gql`
 
   type Query {
     user(id: String!): User
+    calculateAvailableBalance(user_id: String!): CalculateAccountBalanceResponse
   }
 
   type Mutation {
@@ -40,7 +41,6 @@ export const typeDefs = gql`
       value: Int!
       transaction_id: String!
     ): Transaction!
-    calculateAvailableBalance(user_id: String!): CalculateAccountBalanceResponse
   }
 
   type AuthReturnPayload {
