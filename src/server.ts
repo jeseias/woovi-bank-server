@@ -10,7 +10,7 @@ async function startServer() {
 
     const { app } = await import("./main/config/app");
     const server = new ApolloServer({
-      typeDefs: typeDefs,
+      typeDefs,
       resolvers: appResolvers,
     });
 
