@@ -4,9 +4,10 @@ import mongoose from "mongoose";
 import { appResolvers } from "./presentation/resolvers";
 import { _env } from "./main/config/_envs";
 
-mongoose
-  .connect(_env.MONGO_URL)
-  .then(async () => {
+async function startServer() {
+  try {
+    await mongoose.connect(_env.MONGO_URL);
+
     const { app } = await import("./main/config/app");
     const server = new ApolloServer({
       typeDefs: typeDefs,
@@ -22,8 +23,10 @@ mongoose
     app.listen(PORT, () => {
       console.log(`Server listening on ${server.graphqlPath}`);
     });
-  })
-  .catch((err) => {
-    console.log(err);
-    throw err;
-  });
+  } catch (error) {
+    console.error("Error starting server:", error);
+    process.exit(1);
+  }
+}
+
+startServer();
