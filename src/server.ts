@@ -3,6 +3,7 @@ import { typeDefs } from "./presentation/gql-type-defs";
 import mongoose from "mongoose";
 import { appResolvers } from "./presentation/resolvers";
 import { _env } from "./main/config/_envs";
+import { authMiddleware } from "./main/middlewares/auth-middleware";
 
 async function startServer() {
   try {
@@ -12,6 +13,13 @@ async function startServer() {
     const server = new ApolloServer({
       typeDefs,
       resolvers: appResolvers,
+      context: async ({ ctx }) => {
+        await authMiddleware(ctx, async () => {});
+        if (ctx.status === 401) {
+          throw new Error("Unauthorized");
+        }
+        return { user: ctx.state.user };
+      },
     });
 
     await server.start();
