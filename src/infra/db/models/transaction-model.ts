@@ -2,7 +2,7 @@ import { Transaction } from "@/domain/entities";
 import mongoose, { Schema, Document, Types } from "mongoose";
 import { ModelNames } from "./model-names";
 
-export interface TransactionDocument extends Document, Transaction.Entity {}
+export type TransactionDocument = Document & Transaction.IModel;
 
 const TransactionSchema = new Schema<TransactionDocument>({
   [Transaction.Fields.Receiver_Id]: {

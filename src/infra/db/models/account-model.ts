@@ -2,7 +2,7 @@ import mongoose, { Document, Schema, Types } from "mongoose";
 import { ModelNames } from "./model-names";
 import { Account } from "@/domain/entities";
 
-export interface AccountDocument extends Document, Account.Entity {}
+export type AccountDocument = Document & Account.IModel; 
 
 const AccountSchema = new Schema<AccountDocument>({
   [Account.Fields.Account_Number]: {

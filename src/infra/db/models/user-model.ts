@@ -2,7 +2,7 @@ import { User } from "@/domain/entities";
 import mongoose, { Document, Schema } from "mongoose";
 import { ModelNames } from "./model-names";
 
-export interface UserDocument extends Document, User.Entity {}
+export type UserDocument = Document & User.IModel;
 
 const UserSchema = new Schema<UserDocument>({
   [User.Fields.Name]: {
