@@ -5,6 +5,7 @@
     "test": "jest --passWithNoTests --verbose --noStackTrace --runInBand --watch",
     "type-check": "bun tsc",
     "dev": "bun src/server.ts",
+    "start": "node dist/server.js",
     "build": "tsc"
   },
   "devDependencies": {
