@@ -6,7 +6,7 @@
     "type-check": "bun tsc",
     "dev": "bun src/server.ts",
     "start": "node dist/server.js",
-    "build": "tsc",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
     "heroku-postbuild": "bun run build"
   },
   "devDependencies": {
@@ -20,6 +20,7 @@
     "eslint": "9.x",
     "globals": "^15.3.0",
     "jest": "^29.7.0",
+    "rimraf": "^5.0.7",
     "ts-jest": "^29.1.4",
     "typescript-eslint": "^7.11.0"
   },
