@@ -6,7 +6,8 @@
     "type-check": "bun tsc",
     "dev": "bun src/server.ts",
     "start": "node dist/server.js",
-    "build": "tsc"
+    "build": "tsc",
+    "heroku-postbuild": "bun run build"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
