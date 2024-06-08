@@ -1,4 +1,0 @@
-#!/bin/sh
-
-echo "Bun"
-exit 0

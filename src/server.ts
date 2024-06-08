@@ -1,3 +1,5 @@
+import "module-alias/register";
+
 import { ApolloServer } from "apollo-server-koa";
 import { typeDefs } from "./presentation/gql-type-defs";
 import mongoose from "mongoose";
