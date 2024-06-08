@@ -1,1 +1,1 @@
-web: bun run dist/server.js
+web: bun run src/server.ts
