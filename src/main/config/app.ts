@@ -11,7 +11,7 @@ router.get("/", (ctx) => {
   ctx.body = "Woovi Bank Server";
 });
 
-router.get("/graphiql", (ctx) => {
+router.get("/__playground", (ctx) => {
   ctx.body = renderGraphiQL({ endpoint: "/graphql" });
 });
 
