@@ -22,6 +22,7 @@ async function startServer() {
         }
         return { user: ctx.state.user };
       },
+      introspection: true,
     });
 
     await server.start();
