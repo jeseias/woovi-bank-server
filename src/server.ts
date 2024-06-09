@@ -15,6 +15,7 @@ async function startServer() {
     const server = new ApolloServer({
       typeDefs,
       resolvers: appResolvers,
+      introspection: true,
       context: async ({ ctx }) => {
         await authMiddleware(ctx, async () => {});
         if (ctx.status === 401) {
