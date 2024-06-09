@@ -33,7 +33,7 @@ export class SendMoneyUseCase {
     if (sender.balance < value) {
       return new Error("Insufficient funds");
     }
-    
+
     await this.accountRepository.update({
       user_id: sender.user_id,
       balance: (sender.balance -= params.value),

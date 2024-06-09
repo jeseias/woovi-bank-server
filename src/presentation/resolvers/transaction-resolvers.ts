@@ -5,8 +5,11 @@ const sendMoney = makeSendMoney();
 
 export const transactionResolvers = {
   Mutation: {
-    sendMoney: async (_: any, args: CreateTransactionRepository.Params) => {
-      const result = await sendMoney.execute(args);
+    sendMoney: async (
+      _: any,
+      args: { input: CreateTransactionRepository.Params }
+    ) => {
+      const result = await sendMoney.execute(args.input);
       return result;
     },
   },

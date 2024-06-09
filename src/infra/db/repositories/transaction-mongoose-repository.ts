@@ -48,7 +48,7 @@ export class TransactionMongooseRepository implements TransactionRepository {
       transaction.sender,
       transaction.receiver,
       transaction.transaction_id,
-      transaction.value
+      parseInt(transaction.value as any)
     );
   }
 }

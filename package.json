@@ -4,7 +4,7 @@
   "scripts": {
     "test": "jest --passWithNoTests --verbose --noStackTrace --runInBand --watch",
     "type-check": "bun tsc",
-    "dev": "bun src/server.ts",
+    "dev": "bun --watch src/server.ts",
     "start": "node dist/server.js",
     "build": "rimraf dist && tsc -p tsconfig.build.json"
   },
