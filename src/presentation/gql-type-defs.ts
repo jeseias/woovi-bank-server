@@ -26,7 +26,9 @@ export const typeDefs = gql`
   type Query {
     user(input: LoadMeInput!): User
     account(input: LoadAccountInput!): Account
-    calculateAvailableBalance(user_id: String!): CalculateAccountBalanceResponse
+    calculateAvailableBalance(
+      input: CalculateAvailableBalanceInput!
+    ): CalculateAccountBalanceResponse
   }
 
   type Mutation {
@@ -53,6 +55,10 @@ export const typeDefs = gql`
   input LoginUserInput {
     tax_id: String!
     password: String!
+  }
+
+  input CalculateAvailableBalanceInput {
+    user_id: String!
   }
 
   input LoadMeInput {
