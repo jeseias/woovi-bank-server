@@ -1,4 +1,7 @@
-import { CalculateAccountAvailableBalance } from "@/domain/use-cases/accounts";
+import {
+  CalculateAccountAvailableBalance,
+  LoadAccountBalanceUseCase,
+} from "@/domain/use-cases/accounts";
 import {
   LoginUserUseCase,
   RegisterUserUseCase,
@@ -36,3 +39,6 @@ export const makeCalculateAvailableAccountBalance = () =>
     transactionMongooseRepository,
     accountMongooseRepository
   );
+
+export const makeLoadAccount = () =>
+  new LoadAccountBalanceUseCase(accountMongooseRepository);

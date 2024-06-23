@@ -25,6 +25,7 @@ export const typeDefs = gql`
 
   type Query {
     user(input: LoadMeInput!): User
+    account(input: LoadAccountInput!): Account
     calculateAvailableBalance(user_id: String!): CalculateAccountBalanceResponse
   }
 
@@ -56,6 +57,10 @@ export const typeDefs = gql`
 
   input LoadMeInput {
     tax_id: String!
+  }
+
+  input LoadAccountInput {
+    user_id: String!
   }
 
   input SendMoneyInput {
