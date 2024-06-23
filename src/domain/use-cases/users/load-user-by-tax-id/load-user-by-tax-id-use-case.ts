@@ -10,6 +10,6 @@ export class LoadUserByTaxIdUseCase {
       return new Error("User not found");
     }
 
-    return { user };
+    return user;
   }
 }
