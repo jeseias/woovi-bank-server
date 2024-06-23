@@ -28,7 +28,7 @@ describe("LoadUserByTaxIdUseCase", () => {
 
     const result = await sut.execute({ tax_id: "any_tax_id" });
 
-    expect(result).toEqual({ user: mockUserModel() });
+    expect(result).toEqual(mockUserModel());
   });
 
   it('Should return Error("Not found") if user is not found', async () => {
