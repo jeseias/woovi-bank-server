@@ -4,6 +4,7 @@ import {
   RegisterUserUseCase,
 } from "@/domain/use-cases/authentication";
 import { SendMoneyUseCase } from "@/domain/use-cases/transactions";
+import { LoadUserByTaxIdUseCase } from "@/domain/use-cases/users";
 import { cryptoAdapter } from "@/infra/cryptography";
 import {
   accountMongooseRepository,
@@ -17,6 +18,9 @@ export const makeRegisterUser = () =>
     accountMongooseRepository,
     cryptoAdapter
   );
+
+export const makeLoadUserByTaxId = () =>
+  new LoadUserByTaxIdUseCase(userMongooseRepository);
 
 export const makeLogin = () =>
   new LoginUserUseCase(userMongooseRepository, cryptoAdapter);
