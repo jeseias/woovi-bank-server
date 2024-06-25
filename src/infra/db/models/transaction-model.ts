@@ -16,6 +16,7 @@ const TransactionSchema = new Schema<TransactionDocument>({
   [Transaction.Fields.Transaction_Id]: {
     type: String,
     required: true,
+    unique: true,
   },
   [Transaction.Fields.Value]: {
     type: Types.Decimal128,
